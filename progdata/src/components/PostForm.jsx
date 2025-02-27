@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
 function PostForm() {
     const [inputTweet, setInputTweet] = useState("");
     const user = auth.currentUser;
-
+    const navigate = useNavigate();
 
     // ツイートのテキストからURLを抽出するための処理
     const extractUrl = (text) => {
@@ -90,7 +91,7 @@ function PostForm() {
             await updateDoc(doc(db, "tweets", docRef.id), { ogpImage });
         }
         setInputTweet("");
-
+        navigate("/index");
     };
 
     return (
